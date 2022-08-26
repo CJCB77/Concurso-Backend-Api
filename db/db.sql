@@ -1,0 +1,11 @@
+CREATE TABLE rol(
+    id BIGSERIAL PRIMARY KEY,
+    nombre VARCHAR(150) NOT NULL
+);
+
+CREATE TABLE usuario(
+    id BIGSERIAL PRIMARY KEY,
+    username VARCHAR(150) NOT NULL,
+    password VARCHAR(150) NOT NULL,
+    rol_id BIGINT NOT NULL REFERENCES rol(id)
+);

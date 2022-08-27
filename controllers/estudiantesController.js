@@ -39,6 +39,7 @@ const updateEstudiante = async (req, res) => {
         }else{
             nota_final = nota1
         }
+        console.log(nota_final)
         const result = await db.query(query, [cedula,nombres,apellidos,tema,fase_id,nota1,nota2,nota3,nota_final,foto,correo,id]);
         res.json(result.rows[0]);
     }catch(error){

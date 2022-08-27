@@ -26,10 +26,19 @@ const getEstudiante = async (req, res) => {
 const updateEstudiante = async (req, res) => {
     try{
         const {id} = req.params;
-        const {cedula,nombres,apellidos,tema,fase_id,nota1,nota2,nota3,nota_final,foto,correo} = req.body;
+        let nota_final = null
+        const {cedula,nombres,apellidos,tema,fase_id,nota1,nota2,nota3,foto,correo} = req.body;
         const query = `UPDATE estudiante SET cedula = $1, nombres = $2, apellido = $3, tema =$4, fase_id = $5, nota1 = $6, nota2 = $7
             nota3 = $8, nota_final = $9, foto = $10, correo = $11 
             WHERE id = $12 RETURNING *`;
+        
+        if(nota1 && nota2 && nota3){
+            nota_final = nota1 + nota2 + nota3
+        }else if(nota1 && nota2){
+            nota_final = nota1 + nota2
+        }else{
+            nota_final = nota1
+        }
         const result = await db.query(query, [cedula,nombres,apellidos,tema,fase_id,nota1,nota2,nota3,nota_final,foto,correo,id]);
         res.json(result.rows[0]);
     }catch(error){
@@ -51,6 +60,8 @@ const createEstudiante = async (req, res) => {
         res.status(500).json({error: error.message});
     }
 }
+
+
 
 module.exports = {
     getEstudiantes,

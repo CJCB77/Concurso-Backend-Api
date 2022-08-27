@@ -50,10 +50,13 @@ const updateEstudiante = async (req, res) => {
 
 const createEstudiante = async (req, res) => {
     try{
-        const {cedula,nombres,apellidos,tema,fase_id,nota1,nota2,nota3,nota_final,foto,correo} = req.body;
+        let nota_final = null
+        const {cedula,nombres,apellidos,tema,fase_id,nota1,nota2,nota3,foto,correo} = req.body;
         const query = `INSERT INTO estudiante(cedula,nombres,apellidos,tema,fase_id,nota1,nota2,nota3,nota_final,foto,correo)  
             VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
             RETURNING *`;
+
+        nota_final = nota1 + nota2 + nota3
         const result = await db.query(query, [cedula,nombres,apellidos,tema,fase_id,nota1,nota2,nota3,nota_final,foto,correo]);
         res.json(result.rows[0]);
     }catch(error){

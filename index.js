@@ -16,6 +16,9 @@ app.use(cors());
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 
+const usuarioRoute = require('./routes/usuarios');
+app.use('/usuarios', usuarioRoute);
+
 
 //Use env variables
 require('dotenv').config();

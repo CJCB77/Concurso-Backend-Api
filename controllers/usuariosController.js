@@ -1,4 +1,5 @@
 const db = require('../db/connection');
+const bcript = require('bcrypt');
 
 const getUsuarios = async (req, res) => {
     try{
@@ -27,9 +28,12 @@ const updateUsuario = async (req, res) => {
     try{
         const {id} = req.params;
         const {username,password,rol} = req.body;
+        //Encriptar contraseña
+        const salt = await bcript.genSalt(10);
+        const hashed_password = await bcript.hash(password, salt);
         const query = `UPDATE usuario SET username = $1, password = $2, 
             rol = $3 WHERE id = $4 RETURNING *`;
-        const result = await db.query(query, [username,password,rol,id]);
+        const result = await db.query(query, [username,hashed_password,rol,id]);
         res.json(result.rows[0]);
     }catch(error){
         console.log(error);

@@ -28,7 +28,7 @@ const updateEstudiante = async (req, res) => {
         const {id} = req.params;
         let nota_final = null
         const {cedula,nombres,apellidos,tema,fase_id,nota1,nota2,nota3,foto,correo} = req.body;
-        const query = `UPDATE estudiante SET cedula = $1, nombres = $2, apellido = $3, tema =$4, fase_id = $5, nota1 = $6, nota2 = $7
+        const query = `UPDATE estudiante SET cedula = $1, nombres = $2, apellido = $3, tema =$4, fase_id = $5, nota1 = $6, nota2 = $7,
             nota3 = $8, nota_final = $9, foto = $10, correo = $11 
             WHERE id = $12 RETURNING *`;
         

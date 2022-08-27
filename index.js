@@ -19,6 +19,9 @@ app.use('/auth', authRoutes);
 const usuarioRoute = require('./routes/usuarios');
 app.use('/usuarios', usuarioRoute);
 
+const estudianteRoutes=  require('./routes/estudiantes')
+app.use('/estudiantes',estudianteRoutes)
+
 
 //Use env variables
 require('dotenv').config();
